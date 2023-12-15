@@ -67,7 +67,7 @@ public class DipendenteController {
 	@GetMapping("/diplist")
 	public List<Dipendente> listaDipendenti(@RequestParam String password) {
 		List<Dipendente> d=null;
-		if(password.equals("asd"))
+		if(password.equals("asd")) //password
 		{
 			d=dipendenteService.listaDipendenti();
 		}
