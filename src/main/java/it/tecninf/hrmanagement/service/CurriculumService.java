@@ -81,7 +81,7 @@ public class CurriculumService {
 		return curriculumDto;
 	}
 	//------------esecizio 3------------
-	public String esercizio_3_addCVsFromIDDipendente(int id_dipendente,Set<MultipartFile> files)
+	public void esercizio_3_addCVsFromIDDipendente(int id_dipendente,Set<MultipartFile> files) throws Exception
 	{
 		//System.out.println("\n---------------\n"+files.isEmpty()+"\n---------------\n");
 		boolean flag=false;
@@ -97,11 +97,13 @@ public class CurriculumService {
 		
 		if(!dipRepository.existsById(id_dipendente))
 		{
-			return "\nID missing\n";
+			throw new ResourceNotFoundException("Nessun utente trovato", id_dipendente);
+			//return "\nID missing\n";
 		}
 		if(!flag)
 		{
-	        return "\nCVs missing\n";
+			throw new ResourceNotFoundException("Nessun curriculum trovato", id_dipendente);
+	        //return "\nCVs missing\n";
 	    }
 		Dipendente dipendente=dipRepository.findById(id_dipendente).get();
 		byte[] originalBytes=null;
@@ -129,12 +131,13 @@ public class CurriculumService {
 			{
 				if(Arrays.equals(c.getCurriculum(),comodo.getCurriculum())&&c.getDipendente().equals(comodo.getDipendente()))
 				{
-					return "\nCVs already present\n";
+					throw new RecourceAlreadyPresenteException("il Cv è gia stato caricato ",file.getOriginalFilename());
+					//return "\nCVs already present\n";
 				}
 			}
 			repository.save(comodo);//non vado a fare dipednete.getCurriculum().add(comodo)?
 		}
-		return "\nCVs updated\n";
+		//return "\nCVs updated\n";
 	}
 	
 	public void addCurriculum(int idDipendente, Set<MultipartFile> c) throws Exception {

@@ -23,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import it.tecninf.hrmanagement.dto.CurriculumDto;
 import it.tecninf.hrmanagement.dto.DipendenteDto;
+import it.tecninf.hrmanagement.exception.RecourceAlreadyPresenteException;
 import it.tecninf.hrmanagement.model.Curriculum;
 import it.tecninf.hrmanagement.service.CurriculumService;
 import it.tecninf.hrmanagement.service.DipendenteService;
@@ -55,9 +56,10 @@ public class CurriculumController {
 	}
 	//------------esecizio 3------------
 	@PostMapping("/esercizio_3/addCVsFromIDDipendente/{id_dipendente}")
-	public String esercizio_3_addCVsFromIDDipendente(@PathVariable int id_dipendente,@RequestParam("files") Set<MultipartFile> curriculumFile)
+	public void esercizio_3_addCVsFromIDDipendente(@PathVariable int id_dipendente,@RequestParam("files") Set<MultipartFile> curriculumFile) throws Exception
 	{
-		return curriculumService.esercizio_3_addCVsFromIDDipendente(id_dipendente,curriculumFile);
+		//return curriculumService.esercizio_3_addCVsFromIDDipendente(id_dipendente,curriculumFile);
+		curriculumService.esercizio_3_addCVsFromIDDipendente(id_dipendente,curriculumFile);
 	}
 	
 	@PostMapping("/addCV/{id_dipendente}")
