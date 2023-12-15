@@ -152,7 +152,7 @@ public class CurriculumService {
 					Curriculum saveCv = new Curriculum();
 					saveCv.setCurriculum(originalBytes);
 					saveCv.setDipendente(d);
-					System.out.println(d.getCurriculum().add(saveCv));
+					//System.out.println(d.getCurriculum().add(saveCv));
 
 					// se il cv è gia presente lancia un'eccezione e non lo salva
 					if (!d.getCurriculum().add(repository.save(saveCv)))

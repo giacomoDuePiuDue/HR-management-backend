@@ -1,0 +1,321 @@
+{
+	"info": {
+		"_postman_id": "c926fd92-4a82-4dfa-b867-2cef2f8152c7",
+		"name": "SpringProject",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31104403",
+		"_collection_link": "https://universal-eclipse-28697.postman.co/workspace/My-Workspace~5c579209-681d-4186-84ff-dda2a0dddf2e/collection/31104403-c926fd92-4a82-4dfa-b867-2cef2f8152c7?action=share&source=collection_link&creator=31104403"
+	},
+	"item": [
+		{
+			"name": "esercizio_1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"tipologiaSkill\": \"C#\",\r\n        \"idTipSkill\": 15\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dipendente/dipendentiPerDataDiNascitaECompetenze?dataInizio=1990-01-10&dataFine=2010-10-10&skill=Java,html",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dipendente",
+						"dipendentiPerDataDiNascitaECompetenze"
+					],
+					"query": [
+						{
+							"key": "dataInizio",
+							"value": "1990-01-10"
+						},
+						{
+							"key": "dataFine",
+							"value": "2010-10-10"
+						},
+						{
+							"key": "skill",
+							"value": "Java,html"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "esercizio_2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/curriculum/curriculumPerCompetenze?skills=jAva",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"curriculum",
+						"curriculumPerCompetenze"
+					],
+					"query": [
+						{
+							"key": "skills",
+							"value": "jAva"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "esercizio_3_addDipendente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"citta\": \"Roma\",\r\n    \"cognome\": \"Russo\",\r\n    \"dataDiNascita\": \"1900-10-11\",\r\n    \"indirizzo\": \"Via delle piante, 52\",\r\n    \"nome\": \"Giacomo\",\r\n    \"matricola\": \"184SFVEG0\",\r\n    \"rowExist\": 1,\r\n    \"skills\": [\r\n            {\r\n                \"idTipskill\": 5,\r\n                \"tipologiaSkill\": \"Javascript\"\r\n            },\r\n            {\r\n                \"idTipskill\": 6,\r\n                \"tipologiaSkill\": \"Angular JS\"\r\n            }\r\n        ],\r\n    \"refNazionalita\": {\r\n        \"idRefNazionalita\":\"10\",\r\n        \"nazionalita\": \"lesothiana\"\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/dipendente/aggiungiDipendente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dipendente",
+						"aggiungiDipendente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "esercizio_3_addCVsFromIDDipendente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/curriculum/esercizio_3/addCVsFromIDDipendente/237",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"curriculum",
+						"esercizio_3",
+						"addCVsFromIDDipendente",
+						"237"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "esercizio_3_addCV",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "cv",
+							"contentType": "",
+							"type": "file",
+							"src": [
+								"/C:/Users/lrg/eclipse-workspace/SpringBoot/HR-PROJECT-20231109T150918Z-001/HR-PROJECT/backend-hrmanagement-es-main/backend-hrmanagement-es-main/CV_1.pdf",
+								"/C:/Users/lrg/eclipse-workspace/SpringBoot/HR-PROJECT-20231109T150918Z-001/HR-PROJECT/backend-hrmanagement-es-main/backend-hrmanagement-es-main/CV_2.pdf"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/curriculum/addCV/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"curriculum",
+						"addCV",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "esercizio_3_addSkillsFromIDCV",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"idTipskill\": 4,\r\n        \"tipologiaSkill\": \"HTML\"\r\n    },\r\n    {\r\n        \"idTipskill\": 3,\r\n        \"tipologiaSkill\": \"CSS\"\r\n    },\r\n    {\r\n        \"idTipskill\": 9,\r\n        \"tipologiaSkill\": \"C\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/tipskill/esercizio_3/addSkillsFromIDCV/278",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tipskill",
+						"esercizio_3",
+						"addSkillsFromIDCV",
+						"278"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "esercizio_3_addSkillToDip",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tipskill/addSkillToDip?idCv=164&tpskill=3,4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tipskill",
+						"addSkillToDip"
+					],
+					"query": [
+						{
+							"key": "idCv",
+							"value": "164"
+						},
+						{
+							"key": "tpskill",
+							"value": "3,4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "esercizio_4",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dipendente/esercizio_4?id=2338",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dipendente",
+						"esercizio_4"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2338"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "diplist",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/dipendente/diplist?password=asd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dipendente",
+						"diplist"
+					],
+					"query": [
+						{
+							"key": "password",
+							"value": "asd"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "aggiungiskill",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n    \"tipologiaSkill\": \"C\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/tipskill/aggiungiskill",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tipskill",
+						"aggiungiskill"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
