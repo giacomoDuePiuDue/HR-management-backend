@@ -1,0 +1,59 @@
+Chiamate testate: http://localhost:8080/dipendente
+
+GET    || http://localhost:8080/dipendente/diplist per la lista di tutti i dipendenti
+POST   || http://localhost:8080/dipendente/aggiungiDipendente con il JSON del dipendente in body -raw- JSON
+
+
+{
+    "idDipendente": 209,
+    "cognome": "Hale",
+    "dataDiNascita": "1923-12-01",
+    "matricola": "0",
+    "nome": "Mark",
+    "citta": "Roma",
+    "rowExist": 1,
+    "indirizzo": "Viale Marconi, 52",
+    "refNazionalita": {
+        "idRefNazionalita": 3,
+        "nazionalita": "maldiviana"
+    }
+}
+
+
+
+PUT    || http://localhost:8080/dipendente/modificaDipendente con il JSON del dipendente modificato dove desiderato in body-raw-json
+
+{
+    "idDipendente": 209,
+    "cognome": "Aglio",
+    "dataDiNascita": "1923-12-01",
+    "matricola": "0",
+    "nome": "Marco"
+    "citta": "Roma",
+    "rowExist": 1,
+    "indirizzo": "Viale Marconi, 52",
+    "refNazionalita": {
+        "idRefNazionalita": 3,
+        "nazionalita": "maldiviana"
+    }
+}
+
+
+
+
+
+DELETE || http://localhost:8080/dipendente/cancellaDipendente con Params: Key dipendente_id e Value l'id del dipendente (es.54)
+
+
+GET    || http://localhost:8080/tipskill/listaskill per la lista dei JSON delle skill 
+
+DELETE || http://localhost:8080/tipskill/cancellaskill con Params: key id_tip_skill e value id skill (es.2)
+
+POST   || http://localhost:8080/tipskill/aggiungiskill con il JSON della skill in body-raw-json (modificata oggi, se non funziona ho sbagliato a ricommittare)
+
+{
+        "tipologiaSkill": "C#",
+        "idTipSkill": 15
+    }
+
+GET    || http://localhost:8080/refnazionalita/listanazionalita per lista nazionalità
