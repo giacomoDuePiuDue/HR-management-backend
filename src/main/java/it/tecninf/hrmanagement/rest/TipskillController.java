@@ -53,6 +53,13 @@ public class TipskillController {
 	//e poi per le skill...è di netto più efficace
 	@Transactional
 	@Modifying
+	@PostMapping("/esercizio_3/addSkillsFromIDCV_2/{id_curriculum}")
+	public void esercizio_3_addSkillsFromIDCV_2(@PathVariable int id_curriculum,@RequestParam Set<Integer> idTipskill) throws Exception
+	{
+		tipskillService.esercizio_3_addSkillsFromIDCV_2(id_curriculum,idTipskill);
+	}
+	@Transactional
+	@Modifying
 	@PostMapping("/esercizio_3/addSkillsFromIDCV/{id_curriculum}")
 	public String esercizio_3_addSkillsFromIDCV(@PathVariable int id_curriculum,@RequestBody Set<Tipskill> tipskill)
 	{

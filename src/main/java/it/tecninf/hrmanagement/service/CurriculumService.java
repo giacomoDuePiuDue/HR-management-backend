@@ -83,18 +83,15 @@ public class CurriculumService {
 	//------------esecizio 3------------
 	public void esercizio_3_addCVsFromIDDipendente(int id_dipendente,Set<MultipartFile> files) throws Exception
 	{
-		//System.out.println("\n---------------\n"+files.isEmpty()+"\n---------------\n");
 		boolean flag=false;
 		for(MultipartFile file:files)
 		{
-			//System.out.println("\n---------------\n"+file.getSize()+"\n---------------\n");
 			if(file.getSize()>0)
 			{
 				flag=true;
 				break;
 			}
 		}		
-		
 		if(!dipRepository.existsById(id_dipendente))
 		{
 			throw new ResourceNotFoundException("Nessun utente trovato", id_dipendente);
@@ -102,7 +99,7 @@ public class CurriculumService {
 		}
 		if(!flag)
 		{
-			throw new ResourceNotFoundException("Nessun curriculum trovato", id_dipendente);
+			throw new ResourceNotFoundException("Nessun CVs trovato");
 	        //return "\nCVs missing\n";
 	    }
 		Dipendente dipendente=dipRepository.findById(id_dipendente).get();

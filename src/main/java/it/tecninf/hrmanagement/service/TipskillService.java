@@ -2,6 +2,7 @@ package it.tecninf.hrmanagement.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,6 +10,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.tecninf.hrmanagement.exception.RecourceAlreadyPresenteException;
+import it.tecninf.hrmanagement.exception.ResourceNotFoundException;
 import it.tecninf.hrmanagement.model.Competenze;
 import it.tecninf.hrmanagement.model.Curriculum;
 import it.tecninf.hrmanagement.model.Dipendente;
@@ -48,6 +51,37 @@ public class TipskillService {
 	
 	
 	//------------esecizio 3------------esecizio 5------------
+	public void esercizio_3_addSkillsFromIDCV_2(int id_curriculum,Set<Integer> idSkills)
+	{
+		if(!curriculumRepository.existsById(id_curriculum))
+		{
+			throw new ResourceNotFoundException("Nessun curriculum trovato", id_curriculum);
+		}
+		if(idSkills.isEmpty())
+		{
+			throw new ResourceNotFoundException("Nessun Tipskill trovato");
+	    }
+		Curriculum curriculum=curriculumRepository.findById(id_curriculum).get();
+	    Dipendente dipendente=curriculum.getDipendente();//non mi serve controllare se è nullo perchè inserisco il cv in base ad un dipendente esistente
+	    
+	    Set<Tipskill> ti=new HashSet<Tipskill>();
+	    for(Integer i:idSkills) ti.add(tipskillRepository.findById(i).get());
+	    //if(Collections.disjoint(dipendente.getSkills(),ti))
+	    if(dipendente.getSkills().stream().anyMatch(ti::contains))
+	    {
+	    	//System.out.println("\n\n##################################\n\n\n########################################\n\n");
+			throw new RecourceAlreadyPresenteException("Skill gia presenti","");
+	    }
+	    for(Tipskill t:ti)
+	    {
+		    Competenze comodo = new Competenze();
+	        comodo.setIdTipskill(t.getIdTipskill());
+	        comodo.setIdDipendente(dipendente.getIdDipendente());
+	        comodo.setIdCurriculum(id_curriculum);
+	        competenzeRepository.save(comodo);
+	    }
+	}
+	
 	public String esercizio_3_addSkillsFromIDCV(int id_curriculum,Set<Tipskill> skills)
 	{	
 		boolean flag=false;
