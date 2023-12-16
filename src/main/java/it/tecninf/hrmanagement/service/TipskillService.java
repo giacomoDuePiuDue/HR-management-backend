@@ -55,16 +55,37 @@ public class TipskillService {
 	{
 		if(!curriculumRepository.existsById(id_curriculum))
 		{
-			throw new ResourceNotFoundException("Nessun curriculum trovato", id_curriculum);
+			throw new ResourceNotFoundException("Curriculum row","id", id_curriculum);
 		}
-		if(idSkills.isEmpty())
+		if(idSkills.isEmpty())//se c'è un id mancante nel set parte un'ecceione per uest .orElse(null) non serve
 		{
-			throw new ResourceNotFoundException("Nessun Tipskill trovato");
+			throw new ResourceNotFoundException("TipSkill rows");
 	    }
+		
 		Curriculum curriculum=curriculumRepository.findById(id_curriculum).get();
 	    Dipendente dipendente=curriculum.getDipendente();//non mi serve controllare se è nullo perchè inserisco il cv in base ad un dipendente esistente
 	    
-	    Set<Tipskill> ti=new HashSet<Tipskill>();
+	    for(Integer i:idSkills)
+	    {
+	    	if(dipendente.getSkills().contains(tipskillRepository.findById(i).get()))
+	    	{
+	    		throw new RecourceAlreadyPresenteException("TipSkill rows");
+	    	}
+	    }
+	    
+	    for(Integer i:idSkills)
+	    {
+	    	Tipskill t= tipskillRepository.findById(i).get();
+		    Competenze comodo = new Competenze();
+	        comodo.setIdTipskill(t.getIdTipskill());
+	        comodo.setIdDipendente(dipendente.getIdDipendente());
+	        comodo.setIdCurriculum(id_curriculum);
+	        competenzeRepository.save(comodo);
+	    }
+	    
+	    
+	    //il codice, che segue, funiona
+	    /*Set<Tipskill> ti=new HashSet<Tipskill>();
 	    for(Integer i:idSkills) ti.add(tipskillRepository.findById(i).get());
 	    //if(Collections.disjoint(dipendente.getSkills(),ti))
 	    if(dipendente.getSkills().stream().anyMatch(ti::contains))
@@ -79,7 +100,7 @@ public class TipskillService {
 	        comodo.setIdDipendente(dipendente.getIdDipendente());
 	        comodo.setIdCurriculum(id_curriculum);
 	        competenzeRepository.save(comodo);
-	    }
+	    }*/
 	}
 	
 	public String esercizio_3_addSkillsFromIDCV(int id_curriculum,Set<Tipskill> skills)

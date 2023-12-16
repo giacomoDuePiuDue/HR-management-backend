@@ -14,8 +14,14 @@ public class RecourceAlreadyPresenteException extends RuntimeException{
 	 private String fieldName;
 	    
 
+	    public RecourceAlreadyPresenteException(String resourceName) {
+	        super(String.format("%s already present", resourceName)); // Post not found with id : 1
+	        this.resourceName = resourceName;
+	        this.fieldName = fieldName;
+	        
+	    }
 	    public RecourceAlreadyPresenteException(String resourceName, String fieldName) {
-	        super(String.format("%s already present: '%s'", resourceName, fieldName)); // Post not found with id : 1
+	        super(String.format("%s with [ %s ] already present", resourceName, fieldName)); // Post not found with id : 1
 	        this.resourceName = resourceName;
 	        this.fieldName = fieldName;
 	        

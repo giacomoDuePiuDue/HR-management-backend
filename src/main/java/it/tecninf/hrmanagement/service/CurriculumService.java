@@ -94,19 +94,19 @@ public class CurriculumService {
 		}		
 		if(!dipRepository.existsById(id_dipendente))
 		{
-			throw new ResourceNotFoundException("Nessun utente trovato", id_dipendente);
+			throw new ResourceNotFoundException("Dipendente", id_dipendente);
 			//return "\nID missing\n";
 		}
 		if(!flag)
 		{
-			throw new ResourceNotFoundException("Nessun CVs trovato");
+			throw new ResourceNotFoundException("CVs");
 	        //return "\nCVs missing\n";
 	    }
 		Dipendente dipendente=dipRepository.findById(id_dipendente).get();
-		byte[] originalBytes=null;
 		//Nota: a dipendente fissato devo far variare le righe di curriculum
 		for(MultipartFile file:files)
 		{
+			byte[] originalBytes=null;
 			try//NOTA: il controllo dell'eccezione sorge per richiamare .getBytes()!
 			{
 				originalBytes = Base64.getEncoder().encode(file.getBytes());
@@ -114,8 +114,8 @@ public class CurriculumService {
 			catch (Exception e)	{
 				System.out.println(e.getMessage()+"\n"+e.getCause());				
 			}
-				
-			Curriculum comodo = new Curriculum();//istanziarlo qui dentro significa che crea una nuova riga volante con un id nuovo?
+
+			Curriculum comodo = new Curriculum();
 			comodo.setCurriculum(originalBytes);
 			comodo.setDipendente(dipendente);
 				
@@ -128,7 +128,7 @@ public class CurriculumService {
 			{
 				if(Arrays.equals(c.getCurriculum(),comodo.getCurriculum())&&c.getDipendente().equals(comodo.getDipendente()))
 				{
-					throw new RecourceAlreadyPresenteException("il Cv è gia stato caricato ",file.getOriginalFilename());
+					throw new RecourceAlreadyPresenteException("Curriculum rows",file.getOriginalFilename());
 					//return "\nCVs already present\n";
 				}
 			}
