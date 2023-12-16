@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import it.tecninf.hrmanagement.dto.DipendenteDto;
+import it.tecninf.hrmanagement.exception.ResourceNotFoundException;
 import it.tecninf.hrmanagement.model.Curriculum;
 import it.tecninf.hrmanagement.model.Dipendente;
 import it.tecninf.hrmanagement.model.Tipskill;
@@ -94,13 +95,14 @@ public class DipendenteService {
 		return dipendentiDto;
 	}
 	//------------esecizio 4------------
-	public String esercizio_4(int dipendente_id)
+	public void esercizio_4(int dipendente_id) throws Exception
 	{
 		if(!dipendenteRepository.existsById(dipendente_id))
 		{
-			return "\nID missing\n";
+			throw new ResourceNotFoundException("Dipendente", dipendente_id);
+			//return "\nID missing\n";
 		}
 		dipendenteRepository.deleteById(dipendente_id);
-		return "\nSuccessfully eraise\n";
+		//return "\nSuccessfully eraise\n";
 	}
 }

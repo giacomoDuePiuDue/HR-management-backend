@@ -65,13 +65,8 @@ public class DipendenteController {
 	private Utility utility;
 
 	@GetMapping("/diplist")
-	public List<Dipendente> listaDipendenti(@RequestParam String password) {
-		List<Dipendente> d=null;
-		if(password.equals("asd")) //password
-		{
-			d=dipendenteService.listaDipendenti();
-		}
-		return d;
+	public List<Dipendente> listaDipendenti() {
+		return dipendenteService.listaDipendenti();
 	}
 	@GetMapping("/dipoldlist")
 	public List<Dipendente> listaDipendentiVecchi() {
@@ -171,9 +166,9 @@ public class DipendenteController {
 	@Transactional
 	@Modifying
 	@DeleteMapping("/esercizio_4")
-	public String esercizio_4(@RequestParam("id") int dipendente_id)
+	public void esercizio_4(@RequestParam("id") int dipendente_id) throws Exception
 	{
-		return dipendenteService.esercizio_4(dipendente_id);
+		dipendenteService.esercizio_4(dipendente_id);
 		
 	}
 }
