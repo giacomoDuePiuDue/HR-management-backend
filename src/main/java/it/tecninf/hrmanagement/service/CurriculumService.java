@@ -55,7 +55,15 @@ public class CurriculumService {
 	
 	
 	
-	
+	//------------aggiunta------------
+	public void deleteCVsFromID(int id_cv)
+	{
+		if(repository.existsById(id_cv))
+		{
+			throw new ResourceNotFoundException("Nessun cv trovato", id_cv);
+		}
+		repository.deleteById(id_cv);
+	}
 	//------------esecizio 2------------
 	public List<CurriculumDto> curriculumPerCompetenze(Set<String> skills)
 	{

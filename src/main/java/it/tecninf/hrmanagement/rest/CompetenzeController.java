@@ -2,8 +2,10 @@ package it.tecninf.hrmanagement.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -35,7 +37,11 @@ public class CompetenzeController {
 		return data;
 	}
 	
-	//commento test
+	//------------aggiunta------------
+	@DeleteMapping("/deleteByIdDipendenteIdCompetenza")
+	public void deleteByIdDipendenteIdCompetenza(@RequestParam int dipendenteId,@RequestParam int tipskillId) {
+		compService.deleteByIdDipendenteIdCompetenza(dipendenteId,tipskillId);
+	}
 	
 	
 

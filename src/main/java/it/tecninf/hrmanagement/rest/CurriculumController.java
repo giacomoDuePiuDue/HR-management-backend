@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,8 +47,12 @@ public class CurriculumController {
 	}
 	
 	
-	
-	
+	//------------aggiunta------------
+	@DeleteMapping("/deleteCVsFromID/{id_cv}")
+	public void deleteCVsFromID(@PathVariable int id_cv)
+	{
+		curriculumService.deleteCVsFromID(id_cv);
+	}	
 	//------------esecizio 2------------
 	@GetMapping("/curriculumPerCompetenze")
 	public List<CurriculumDto> curriculumPerCompetenze(@RequestParam Set<String> skills)

@@ -46,8 +46,6 @@ public class TipskillController {
 	}
 	
 	
-	
-	
 	//------------esecizio 3------------esecizio 5------------
 	//partire da le informaioni di un dipendente gi salavto nel db, poi all'inserimento di un curriculum e 
 	//e poi per le skill...è di netto più efficace

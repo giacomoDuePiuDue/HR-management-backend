@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -126,7 +127,7 @@ public class DipendenteController {
 	
 	
 
-	@PutMapping("/modificaDipendente")
+	@PatchMapping("/modificaDipendente")
 	public void modificaDipendente(@RequestBody Dipendente dipendente) {
 		System.out.println("Modifica del dipendente!");
 		dipendenteService.updateDipendente(dipendente.getMatricola(), dipendente.getNome(), dipendente.getCognome(),
