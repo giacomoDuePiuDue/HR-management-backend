@@ -58,11 +58,31 @@ public class CurriculumService {
 	//------------aggiunta------------
 	public void deleteCVsFromID(int id_cv)
 	{
-		if(repository.existsById(id_cv))
+		if(!repository.existsById(id_cv))
 		{
 			throw new ResourceNotFoundException("Nessun cv trovato", id_cv);
 		}
 		repository.deleteById(id_cv);
+	}
+	public void updateBlobCvFromID(int idCv,MultipartFile file) throws IOException
+	{
+		if(!repository.existsById(idCv))
+		{
+			throw new ResourceNotFoundException("Nessun cv trovato", idCv);
+		}
+		Curriculum cv=repository.findById(idCv).get();
+		/*byte[] originalBytes=null;
+		try//NOTA: il controllo dell'eccezione sorge per richiamare .getBytes()!
+		{
+			originalBytes = Base64.getEncoder().encode(file.getBytes());
+		}
+		catch (Exception e)	{
+			System.out.println(e.getMessage()+"\n"+e.getCause());				
+		}
+		System.out.println("\n\n-------------------------------------------------\n"+originalBytes+"\n"+file.getBytes()+"\n-----------------------------------------------\n\n");
+		cv.setCurriculum(originalBytes);*/
+		cv.setCurriculum(file.getBytes());//non so perchè ma la request cos impostata sopra mi codifica in base64 una volta in più il contenuto del file
+		repository.save(cv); // Salva l'oggetto Curriculum modificato nel database senza realizzare una nuova riga, ma modificando quella esistente
 	}
 	//------------esecizio 2------------
 	public List<CurriculumDto> curriculumPerCompetenze(Set<String> skills)
@@ -124,7 +144,7 @@ public class CurriculumService {
 			}
 
 			Curriculum comodo = new Curriculum();
-			comodo.setCurriculum(originalBytes);
+			comodo.setCurriculum(originalBytes);//comodo.setCurriculum(file.getBytes());
 			comodo.setDipendente(dipendente);
 				
 			/*if(dipendente.getCurriculum().contains(comodo))//credo che se non entra qui è per l'id diverso...ho tolto il try/catch per essere sicuro che non interferisse

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,7 +53,12 @@ public class CurriculumController {
 	public void deleteCVsFromID(@PathVariable int id_cv)
 	{
 		curriculumService.deleteCVsFromID(id_cv);
-	}	
+	}
+	@PatchMapping("/updateBlobCvFromID/{id_cv}")
+	public void updateBlobCvFromID(@PathVariable int id_cv,@RequestParam("file") MultipartFile file) throws IOException
+	{
+		curriculumService.updateBlobCvFromID(id_cv,file);
+	}
 	//------------esecizio 2------------
 	@GetMapping("/curriculumPerCompetenze")
 	public List<CurriculumDto> curriculumPerCompetenze(@RequestParam Set<String> skills)
