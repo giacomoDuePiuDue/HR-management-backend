@@ -1,24 +1,30 @@
 package it.tecninf.hrmanagement.repository;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.tecninf.hrmanagement.model.Dipendente;
 
 
-public interface DipendenteRepository extends CrudRepository<Dipendente, Integer> {
+public interface DipendenteRepository extends CrudRepository<Dipendente, Integer>,PagingAndSortingRepository<Dipendente,Integer> {
 	
 	@Query(value = "SELECT last_insert_id();", nativeQuery = true)
 	public int lastIdDipendente();
 
 	@Query(value = "SELECT * FROM hrmanagement.dipendente WHERE row_exist=1;", nativeQuery = true)
 	public List<Dipendente> findAllEmp();
+	
+	public Page<Dipendente> findAll(Pageable pageable);
 
 	@Query(value = "SELECT * FROM hrmanagement.dipendente WHERE row_exist=0 ORDER BY cognome ASC", nativeQuery = true)
 	public List<Dipendente> findAllOldEmp();

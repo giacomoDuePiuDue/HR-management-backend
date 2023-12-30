@@ -1,5 +1,6 @@
 package it.tecninf.hrmanagement.service;
 
+
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -9,6 +10,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -39,6 +42,9 @@ public class DipendenteService {
 		return (List<Dipendente>) dipendenteRepository.findAllEmp();
 	}
 
+	public Page<Dipendente> listaDipendentiPageable(Pageable pageable){
+		return  dipendenteRepository.findAll(pageable);
+	}
 	public List<Dipendente> listaDipendentiVecchi() {
 		return (List<Dipendente>) dipendenteRepository.findAllOldEmp();
 
