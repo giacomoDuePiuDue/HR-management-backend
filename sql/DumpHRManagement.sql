@@ -31,7 +31,7 @@ CREATE TABLE `competenze` (
   KEY `id_curriculum_idx` (`id_curriculum`),
   KEY `id_tipskill_idx` (`id_tipskill`) /*!80000 INVISIBLE */,
   KEY `id_dipendente_idx` (`id_dipendente`),
-  CONSTRAINT `id_curriculum` FOREIGN KEY (`id_curriculum`) REFERENCES `curriculum` (`id_curriculum`),
+  CONSTRAINT `id_curriculum` FOREIGN KEY (`id_curriculum`) REFERENCES `curriculum` (`id_curriculum`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `id_dipendente` FOREIGN KEY (`id_dipendente`) REFERENCES `dipendente` (`id_dipendente`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `id_tipskill` FOREIGN KEY (`id_tipskill`) REFERENCES `tipskill` (`id_tipskill`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

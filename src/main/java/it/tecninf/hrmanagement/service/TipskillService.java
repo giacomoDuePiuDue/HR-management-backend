@@ -9,6 +9,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.tecninf.hrmanagement.exception.RecourceAlreadyPresenteException;
 import it.tecninf.hrmanagement.exception.ResourceNotFoundException;
@@ -50,7 +52,19 @@ public class TipskillService {
 	
 	
 
-
+	//------------aggiunta------------
+	public List<Tipskill> getTipskillsByEmployeeIDCvID(int dipendenteID,int cvID)
+	{
+		if(!curriculumRepository.existsById(cvID))
+		{
+			throw new ResourceNotFoundException("Curriculum row","id", cvID);
+		}
+		if(!dipendenteRepository.existsById(dipendenteID))
+		{
+			throw new ResourceNotFoundException("Dipendente row","id", dipendenteID);
+		}
+		return (List<Tipskill>) tipskillRepository.getTipskillsByEmployeeIDCvID(dipendenteID,cvID);
+	}
 	//------------esecizio 3------------esecizio 5------------
 	public void esercizio_3_addSkillsFromIDCV_2(int id_curriculum,Set<Integer> idSkills)
 	{
@@ -66,13 +80,14 @@ public class TipskillService {
 		Curriculum curriculum=curriculumRepository.findById(id_curriculum).get();
 	    Dipendente dipendente=curriculum.getDipendente();//non mi serve controllare se è nullo perchè inserisco il cv in base ad un dipendente esistente
 	    
-	    for(Integer i:idSkills)
+	    //ho dovuto commentare questa parte perchè non posso associare una tipskill su cv diversi
+	    /*for(Integer i:idSkills)
 	    {
 	    	if(dipendente.getSkills().contains(tipskillRepository.findById(i).get()))
 	    	{
 	    		throw new RecourceAlreadyPresenteException("TipSkill rows");
 	    	}
-	    }
+	    }*/
 	    
 	    for(Integer i:idSkills)
 	    {
