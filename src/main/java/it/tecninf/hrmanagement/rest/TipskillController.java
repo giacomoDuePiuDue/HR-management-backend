@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import it.tecninf.hrmanagement.model.Tipskill;
 import it.tecninf.hrmanagement.service.TipskillService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("tipskill")
 public class TipskillController {
