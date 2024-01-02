@@ -55,7 +55,7 @@ public class CurriculumController {
 		curriculumService.deleteCVsFromID(id_cv);
 	}
 	@PatchMapping("/updateBlobCvFromID/{id_cv}")
-	public void updateBlobCvFromID(@PathVariable int id_cv,@RequestParam("file") MultipartFile file) throws IOException
+	public void updateBlobCvFromID(@PathVariable int id_cv,@RequestParam("0123456789") MultipartFile file) throws IOException
 	{
 		curriculumService.updateBlobCvFromID(id_cv,file);
 	}
@@ -67,7 +67,7 @@ public class CurriculumController {
 	}
 	//------------esecizio 3------------
 	@PostMapping("/esercizio_3/addCVsFromIDDipendente/{id_dipendente}")
-	public void esercizio_3_addCVsFromIDDipendente(@PathVariable int id_dipendente,@RequestParam("files") Set<MultipartFile> curriculumFile) throws Exception
+	public void esercizio_3_addCVsFromIDDipendente(@PathVariable int id_dipendente,@RequestParam("key") Set<MultipartFile> curriculumFile) throws IOException
 	{
 		//return curriculumService.esercizio_3_addCVsFromIDDipendente(id_dipendente,curriculumFile);
 		curriculumService.esercizio_3_addCVsFromIDDipendente(id_dipendente,curriculumFile);

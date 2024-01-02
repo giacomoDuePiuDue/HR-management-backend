@@ -81,6 +81,9 @@ public class CurriculumService {
 		}
 		System.out.println("\n\n-------------------------------------------------\n"+originalBytes+"\n"+file.getBytes()+"\n-----------------------------------------------\n\n");
 		cv.setCurriculum(originalBytes);*/
+		
+		//IMPORTANTE: non so perchè la request mi manda un messaggio già codificato in base 64, inoltre per ottenere un buon comportamento del backend
+		//è consigliabile usare solo file .txt, perchè evidentemente c'è un meccanismo diverso per leggere i pdf, che contengono anche codice xml di dipendenze
 		cv.setCurriculum(file.getBytes());//non so perchè ma la request cos impostata sopra mi codifica in base64 una volta in più il contenuto del file
 		repository.save(cv); // Salva l'oggetto Curriculum modificato nel database senza realizzare una nuova riga, ma modificando quella esistente
 	}
@@ -109,7 +112,7 @@ public class CurriculumService {
 		return curriculumDto;
 	}
 	//------------esecizio 3------------
-	public void esercizio_3_addCVsFromIDDipendente(int id_dipendente,Set<MultipartFile> files) throws Exception
+	public void esercizio_3_addCVsFromIDDipendente(int id_dipendente,Set<MultipartFile> files) throws IOException
 	{
 		boolean flag=false;
 		for(MultipartFile file:files)
@@ -134,7 +137,7 @@ public class CurriculumService {
 		//Nota: a dipendente fissato devo far variare le righe di curriculum
 		for(MultipartFile file:files)
 		{
-			byte[] originalBytes=null;
+			/*byte[] originalBytes=null;
 			try//NOTA: il controllo dell'eccezione sorge per richiamare .getBytes()!
 			{
 				originalBytes = Base64.getEncoder().encode(file.getBytes());
@@ -145,6 +148,12 @@ public class CurriculumService {
 
 			Curriculum comodo = new Curriculum();
 			comodo.setCurriculum(originalBytes);//comodo.setCurriculum(file.getBytes());
+			comodo.setDipendente(dipendente);*/
+			
+			//IMPORTANTE: non so perchè la request mi manda un messaggio già codificato in base 64, inoltre per ottenere un buon comportamento del backend
+			//è consigliabile usare solo file .txt, perchè evidentemente c'è un meccanismo diverso per leggere i pdf, che contengono anche codice xml di dipendenze
+			Curriculum comodo = new Curriculum();
+			comodo.setCurriculum(file.getBytes());
 			comodo.setDipendente(dipendente);
 				
 			/*if(dipendente.getCurriculum().contains(comodo))//credo che se non entra qui è per l'id diverso...ho tolto il try/catch per essere sicuro che non interferisse
@@ -156,6 +165,7 @@ public class CurriculumService {
 			{
 				if(Arrays.equals(c.getCurriculum(),comodo.getCurriculum())&&c.getDipendente().equals(comodo.getDipendente()))
 				{
+					//System.out.println("\n\n-------------------------------------------------\nCV duplicati\n-----------------------------------------------\n\n");
 					throw new RecourceAlreadyPresenteException("Curriculum rows",file.getOriginalFilename());
 					//return "\nCVs already present\n";
 				}

@@ -150,7 +150,10 @@ public class DipendenteController {
 	}*/
 	
 	
-	
+	@GetMapping("/diplistpage")
+	public Page<Dipendente> listaDipendentiPage(Pageable pageable){
+		return dipendenteService.listaDipendentiPageable(pageable);
+	}
 	
 	//------------esecizio 1------------
 	@GetMapping("/dipendentiPerDataDiNascitaECompetenze")

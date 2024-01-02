@@ -87,7 +87,9 @@ public class DipendenteService {
 	}*/
 	
 	
-	
+	public Page<Dipendente> listaDipendentiPageable(Pageable pageable){
+		return  dipendenteRepository.findAll(pageable);
+	}
 	
 	//------------esecizio 1------------
 	public List<DipendenteDto> dipendentiPerDataDiNascitaECompetenze(String dataInizio,String dataFine,Set<String> skill)
