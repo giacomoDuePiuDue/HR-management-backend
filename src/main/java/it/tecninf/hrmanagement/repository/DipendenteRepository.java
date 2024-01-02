@@ -54,8 +54,6 @@ public interface DipendenteRepository extends CrudRepository<Dipendente, Integer
 
 	
 	
-	public Page<Dipendente> findAll(Pageable pageable);
-	
 	//------------esecizio 1------------
 	@Query(value = "SELECT * "
 			+ "FROM hrmanagement.dipendente "
