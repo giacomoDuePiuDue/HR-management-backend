@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -144,7 +146,10 @@ public class DipendenteController {
 	}*/
 	
 	
-	
+	@GetMapping("/diplistpage")
+	public Page<Dipendente> listaDipendentiPage(Pageable pageable){
+		return dipendenteService.listaDipendentiPageable(pageable);
+	}
 	
 	//------------esecizio 1------------
 	@GetMapping("/dipendentiPerDataDiNascitaECompetenze")

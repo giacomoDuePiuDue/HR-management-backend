@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -81,7 +83,9 @@ public class DipendenteService {
 	}*/
 	
 	
-	
+	public Page<Dipendente> listaDipendentiPageable(Pageable pageable){
+		return  dipendenteRepository.findAll(pageable);
+	}
 	
 	//------------esecizio 1------------
 	public List<DipendenteDto> dipendentiPerDataDiNascitaECompetenze(String dataInizio,String dataFine,Set<String> skill)

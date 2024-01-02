@@ -1,18 +1,22 @@
 package it.tecninf.hrmanagement.repository;
 
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.tecninf.hrmanagement.model.Dipendente;
 
 
-public interface DipendenteRepository extends CrudRepository<Dipendente, Integer> {
+public interface DipendenteRepository extends CrudRepository<Dipendente, Integer>,PagingAndSortingRepository<Dipendente,Integer> {
 	
 	@Query(value = "SELECT last_insert_id();", nativeQuery = true)
 	public int lastIdDipendente();
@@ -48,7 +52,7 @@ public interface DipendenteRepository extends CrudRepository<Dipendente, Integer
 
 	
 	
-	
+	public Page<Dipendente> findAll(Pageable pageable);
 	
 	//------------esecizio 1------------
 	@Query(value = "SELECT * "
