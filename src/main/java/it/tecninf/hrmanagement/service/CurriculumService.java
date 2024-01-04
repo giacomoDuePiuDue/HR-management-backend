@@ -87,6 +87,32 @@ public class CurriculumService {
 		cv.setCurriculum(file.getBytes());//non so perchè ma la request cos impostata sopra mi codifica in base64 una volta in più il contenuto del file
 		repository.save(cv); // Salva l'oggetto Curriculum modificato nel database senza realizzare una nuova riga, ma modificando quella esistente
 	}
+	private String base64ToString(byte[] base64Data)
+	{
+	    if(isPdfFile(base64Data)) {
+	        try {
+				String text = Base64.getEncoder().encodeToString(base64Data);
+				Base64.Decoder decoder = Base64.getDecoder();  
+				String pdfContent  = new String(decoder.decode(text));
+	            return pdfContent;
+	        } catch (IllegalArgumentException e) {
+	            throw new IllegalArgumentException("Contenuto base64 non valido per il PDF", e);
+	        }
+	    }
+	    // Codifica il file di testo
+        String encodedText = Base64.getEncoder().encodeToString(base64Data);
+        return encodedText;
+	}
+	private static boolean isPdfFile(byte[] data) {
+	    // Controllo se il file inizia con la sequenza di byte "%PDF"
+	    byte[] pdfSignature = "%PDF".getBytes();
+	    for (int i = 0; i < pdfSignature.length; i++) {
+	        if (data[i] != pdfSignature[i]) {
+	            return false;
+	        }
+	    }
+	    return true;
+	}	
 	//------------esecizio 2------------
 	public List<CurriculumDto> curriculumPerCompetenze(Set<String> skills)
 	{
@@ -137,40 +163,45 @@ public class CurriculumService {
 		//Nota: a dipendente fissato devo far variare le righe di curriculum
 		for(MultipartFile file:files)
 		{
-			/*byte[] originalBytes=null;
-			try//NOTA: il controllo dell'eccezione sorge per richiamare .getBytes()!
+			if(file.getSize()>0)
 			{
-				originalBytes = Base64.getEncoder().encode(file.getBytes());
-			}
-			catch (Exception e)	{
-				System.out.println(e.getMessage()+"\n"+e.getCause());				
-			}
-
-			Curriculum comodo = new Curriculum();
-			comodo.setCurriculum(originalBytes);//comodo.setCurriculum(file.getBytes());
-			comodo.setDipendente(dipendente);*/
-			
-			//IMPORTANTE: non so perchè la request mi manda un messaggio già codificato in base 64, inoltre per ottenere un buon comportamento del backend
-			//è consigliabile usare solo file .txt, perchè evidentemente c'è un meccanismo diverso per leggere i pdf, che contengono anche codice xml di dipendenze
-			Curriculum comodo = new Curriculum();
-			comodo.setCurriculum(file.getBytes());
-			comodo.setDipendente(dipendente);
-				
-			/*if(dipendente.getCurriculum().contains(comodo))//credo che se non entra qui è per l'id diverso...ho tolto il try/catch per essere sicuro che non interferisse
-			{
-				return "\nCVs already present\n";
-			}*/
-			
-			for(Curriculum c:dipendente.getCurriculum())
-			{
-				if(Arrays.equals(c.getCurriculum(),comodo.getCurriculum())&&c.getDipendente().equals(comodo.getDipendente()))
+				/*byte[] originalBytes=null;
+				try//NOTA: il controllo dell'eccezione sorge per richiamare .getBytes()!
 				{
-					//System.out.println("\n\n-------------------------------------------------\nCV duplicati\n-----------------------------------------------\n\n");
-					throw new RecourceAlreadyPresenteException("Curriculum rows",file.getOriginalFilename());
-					//return "\nCVs already present\n";
+					originalBytes = Base64.getEncoder().encode(file.getBytes());
 				}
+				catch (Exception e)	{
+					System.out.println(e.getMessage()+"\n"+e.getCause());				
+				}
+	
+				Curriculum comodo = new Curriculum();
+				comodo.setCurriculum(originalBytes);//comodo.setCurriculum(file.getBytes());
+				comodo.setDipendente(dipendente);*/
+				
+				//IMPORTANTE: non so perchè la request mi manda un messaggio già codificato in base 64, inoltre per ottenere un buon comportamento del backend
+				//è consigliabile usare solo file .txt, perchè evidentemente c'è un meccanismo diverso per leggere i pdf, che contengono anche codice xml di dipendenze
+				Curriculum comodo = new Curriculum();
+				byte[] blob=file.getBytes();
+				comodo.setCurriculum(blob);
+				//comodo.setPdfText(this.base64ToString(blob));
+				comodo.setDipendente(dipendente);
+					
+				/*if(dipendente.getCurriculum().contains(comodo))//credo che se non entra qui è per l'id diverso...ho tolto il try/catch per essere sicuro che non interferisse
+				{
+					return "\nCVs already present\n";
+				}*/
+				
+				for(Curriculum c:dipendente.getCurriculum())
+				{
+					if(Arrays.equals(c.getCurriculum(),comodo.getCurriculum())&&c.getDipendente().equals(comodo.getDipendente()))
+					{
+						//System.out.println("\n\n-------------------------------------------------\nCV duplicati\n-----------------------------------------------\n\n");
+						throw new RecourceAlreadyPresenteException("Curriculum rows",file.getOriginalFilename());
+						//return "\nCVs already present\n";
+					}
+				}
+				repository.save(comodo);//non vado a fare dipednete.getCurriculum().add(comodo)?
 			}
-			repository.save(comodo);//non vado a fare dipednete.getCurriculum().add(comodo)?
 		}
 		//return "\nCVs updated\n";
 	}
