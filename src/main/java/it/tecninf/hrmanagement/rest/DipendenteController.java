@@ -71,6 +71,10 @@ public class DipendenteController {
 	public List<Dipendente> listaDipendenti() {
 		return dipendenteService.listaDipendenti();
 	}
+	@GetMapping("/diplistpage")
+	public Page<Dipendente> listaDipendentiPage(Pageable pageable){
+		return dipendenteService.listaDipendentiPageable(pageable);
+	}
 	@GetMapping("/dipoldlist")
 	public List<Dipendente> listaDipendentiVecchi() {
 		return (List<Dipendente>) dipendenteService.listaDipendentiVecchi();

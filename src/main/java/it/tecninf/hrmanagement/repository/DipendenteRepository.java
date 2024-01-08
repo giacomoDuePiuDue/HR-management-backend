@@ -23,6 +23,8 @@ public interface DipendenteRepository extends CrudRepository<Dipendente, Integer
 
 	@Query(value = "SELECT * FROM hrmanagement.dipendente WHERE row_exist=1;", nativeQuery = true)
 	public List<Dipendente> findAllEmp();
+	
+	public Page<Dipendente> findAll(Pageable pageable);
 
 	@Query(value = "SELECT * FROM hrmanagement.dipendente WHERE row_exist=0 ORDER BY cognome ASC", nativeQuery = true)
 	public List<Dipendente> findAllOldEmp();

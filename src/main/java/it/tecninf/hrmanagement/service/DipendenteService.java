@@ -1,5 +1,6 @@
 package it.tecninf.hrmanagement.service;
 
+
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -41,6 +42,9 @@ public class DipendenteService {
 		return (List<Dipendente>) dipendenteRepository.findAllEmp();
 	}
 
+	public Page<Dipendente> listaDipendentiPageable(Pageable pageable){
+		return  dipendenteRepository.findAll(pageable);
+	}
 	public List<Dipendente> listaDipendentiVecchi() {
 		return (List<Dipendente>) dipendenteRepository.findAllOldEmp();
 

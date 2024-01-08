@@ -30,7 +30,7 @@ import it.tecninf.hrmanagement.model.Curriculum;
 import it.tecninf.hrmanagement.service.CurriculumService;
 import it.tecninf.hrmanagement.service.DipendenteService;
 
-@CrossOrigin(origins ="http://localhost:4200")
+@CrossOrigin(origins ="*")
 @RestController
 @RequestMapping("curriculum")
 public class CurriculumController {
