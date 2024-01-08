@@ -117,7 +117,7 @@ DROP TABLE IF EXISTS `ref_nazionalita`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ref_nazionalita` (
-  `id_ref_nazionalita` int NOT NULL,
+  `id_ref_nazionalita` int NOT NULL AUTO_INCREMENT,
   `nazionalita` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_ref_nazionalita`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

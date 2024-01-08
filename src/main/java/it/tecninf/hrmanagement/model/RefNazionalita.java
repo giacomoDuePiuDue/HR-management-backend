@@ -35,4 +35,10 @@ public class RefNazionalita implements Serializable {
 	public void setNazionalita(String nazionalita) {
 		this.nazionalita = nazionalita;
 	}
+
+	@Override
+	public String toString() {
+		return "RefNazionalita [idRefNazionalita=" + idRefNazionalita + ", nazionalita=" + nazionalita + "]";
+	}
+	
 }
