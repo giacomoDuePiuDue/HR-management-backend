@@ -75,6 +75,10 @@ public class DipendenteController {
 	public Page<Dipendente> listaDipendentiPage(Pageable pageable){
 		return dipendenteService.listaDipendentiPageable(pageable);
 	}
+	@GetMapping("/filterListName")
+	public Page<Dipendente> filterByNomeAndCognome(Pageable pageable,@RequestParam String nomeCognome){
+		return dipendenteService.filterByNomeAndCognome(pageable, nomeCognome);
+	}
 	@GetMapping("/dipoldlist")
 	public List<Dipendente> listaDipendentiVecchi() {
 		return (List<Dipendente>) dipendenteService.listaDipendentiVecchi();
@@ -150,10 +154,7 @@ public class DipendenteController {
 	}*/
 	
 	
-	@GetMapping("/diplistpage")
-	public Page<Dipendente> listaDipendentiPage(Pageable pageable){
-		return dipendenteService.listaDipendentiPageable(pageable);
-	}
+	
 	
 	//------------esecizio 1------------
 	@GetMapping("/dipendentiPerDataDiNascitaECompetenze")

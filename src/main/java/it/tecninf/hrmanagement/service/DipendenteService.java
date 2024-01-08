@@ -45,6 +45,10 @@ public class DipendenteService {
 	public Page<Dipendente> listaDipendentiPageable(Pageable pageable){
 		return  dipendenteRepository.findAll(pageable);
 	}
+	
+	public Page<Dipendente> filterByNomeAndCognome(Pageable page,String nomeCognome){
+		return dipendenteRepository.findByNomeAndCognome(page, nomeCognome);
+	}
 	public List<Dipendente> listaDipendentiVecchi() {
 		return (List<Dipendente>) dipendenteRepository.findAllOldEmp();
 
@@ -87,9 +91,7 @@ public class DipendenteService {
 	}*/
 	
 	
-	public Page<Dipendente> listaDipendentiPageable(Pageable pageable){
-		return  dipendenteRepository.findAll(pageable);
-	}
+	
 	
 	//------------esecizio 1------------
 	public List<DipendenteDto> dipendentiPerDataDiNascitaECompetenze(String dataInizio,String dataFine,Set<String> skill)

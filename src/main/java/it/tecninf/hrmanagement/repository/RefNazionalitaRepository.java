@@ -13,4 +13,6 @@ public interface RefNazionalitaRepository extends CrudRepository <RefNazionalita
 		    value = "SELECT * from hrmanagement.ref_nazionalita",
 			nativeQuery = true)
 	public List<RefNazionalita> listaNazionalita();
+	
+
 }

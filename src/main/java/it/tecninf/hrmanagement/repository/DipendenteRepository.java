@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.tecninf.hrmanagement.model.Dipendente;
@@ -54,8 +55,6 @@ public interface DipendenteRepository extends CrudRepository<Dipendente, Integer
 
 	
 	
-	public Page<Dipendente> findAll(Pageable pageable);
-	
 	//------------esecizio 1------------
 	@Query(value = "SELECT * "
 			+ "FROM hrmanagement.dipendente "
@@ -78,5 +77,9 @@ public interface DipendenteRepository extends CrudRepository<Dipendente, Integer
 			+ "INNER JOIN hrmanagement.tipskill ON competenze.id_tipskill = tipskill.id_tipskill "			
 			+ "WHERE dipendente.id_dipendente=?;", nativeQuery = true)
 	public void esercizio_4(int dipendente_id);*/
+	
+	@Query(value = "SELECT * FROM hrmanagement.dipendente WHERE LOWER(CONCAT(dipendente.nome, ' ', dipendente.cognome)) LIKE LOWER(CONCAT('%', :nomeCognome, '%')) OR dipendente.matricola LIKE LOWER(CONCAT('%' ,:nomeCognome , '%'))", nativeQuery = true)
+	public Page<Dipendente> findByNomeAndCognome(Pageable pageable, @Param("nomeCognome") String nomeCognome);
+
 	
 }
