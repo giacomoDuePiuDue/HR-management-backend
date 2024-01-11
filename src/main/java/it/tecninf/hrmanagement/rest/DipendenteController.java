@@ -160,6 +160,7 @@ public class DipendenteController {
 	@GetMapping("/dipendentiPerDataDiNascitaECompetenze")
 	public List<DipendenteDto> dipendentiPerDataDiNascitaECompetenze(@RequestParam String dataInizio,@RequestParam String dataFine,@RequestParam Set<String> skill)
 	{
+		System.out.println(dataInizio + dataFine +skill + "----------------------------------------");
 		return (List<DipendenteDto>) dipendenteService.dipendentiPerDataDiNascitaECompetenze(dataInizio,dataFine,skill);
 	}
 	//------------esecizio 3------------

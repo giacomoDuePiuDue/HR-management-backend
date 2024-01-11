@@ -23,7 +23,7 @@ public class RefNazionalitaService {
 		List<RefNazionalita> list = refnazionalitaRepository.listaNazionalita();
 		if(list.stream().anyMatch(item -> item.getNazionalita().toLowerCase().equals(nazionalita.toLowerCase()))) {
 			System.out.println(list.stream().anyMatch(item -> item.getNazionalita().toLowerCase().equals(nazionalita.toLowerCase())));
-//			throw new  RecourceAlreadyPresenteException(nazionalita +" gia presente");
+			throw new  RecourceAlreadyPresenteException(nazionalita +" gia presente");
 		}else{
 			
 			RefNazionalita n = new RefNazionalita();

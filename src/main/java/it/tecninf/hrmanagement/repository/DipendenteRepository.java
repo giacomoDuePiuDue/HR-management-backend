@@ -56,8 +56,9 @@ public interface DipendenteRepository extends CrudRepository<Dipendente, Integer
 	
 	
 	//------------esecizio 1------------
-	@Query(value = "SELECT * "
-			+ "FROM hrmanagement.dipendente "
+	
+	@Query(value = "SELECT DISTINCT dipendente.id_dipendente, dipendente.nome, dipendente.cognome, dipendente.data_di_nascita, dipendente.citta, dipendente.indirizzo, dipendente.matricola, dipendente.id_ref_nazionalita, dipendente.row_exist "
+			+ "FROM hrmanagement.dipendente dipendente "
 			+ "INNER JOIN hrmanagement.competenze ON dipendente.id_dipendente = competenze.id_dipendente "
 			+ "INNER JOIN hrmanagement.tipskill ON competenze.id_tipskill = tipskill.id_tipskill "
 			+ "WHERE dipendente.data_di_nascita BETWEEN :dataInizio AND :dataFine AND "

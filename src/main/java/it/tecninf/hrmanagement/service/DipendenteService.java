@@ -100,8 +100,15 @@ public class DipendenteService {
 		List<DipendenteDto> dipendentiDto=new ArrayList<DipendenteDto>();
 		for(Dipendente dipendente:dipendenti)
 		{
-			dipendentiDto.add(new DipendenteDto(dipendente.getNome(),dipendente.getCognome(),dipendente.getSkills()));
+			DipendenteDto dipDto  = new DipendenteDto();
+			dipDto.setNome(dipendente.getNome());
+			dipDto.setCognome(dipendente.getCognome());
+			dipDto.setIdDipendente(dipendente.getIdDipendente());
+			dipDto.setDataDiNascita(dipendente.getDataDiNascita());
+			dipDto.setSkill(dipendente.getSkills());
+			dipendentiDto.add(dipDto);
 		}
+		 ;
 		return dipendentiDto;
 	}
 	//------------esecizio 4------------
